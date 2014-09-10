@@ -1,6 +1,16 @@
 {
-  "name": "package",
-  "version": "0.0.0",
-  "dependencies": {}
+  "name": "<%= _.slugify(projectName) %>",
+  "version": "0.0.1",
+  "authors": [
+  	"Mitch Chen <mitchblog@gmail.com>"
+  ],
+  "dependencies": {
+  	"jquery": "~2.1.0",
+  	"bootstrap": "~3.2.0",
+  	"Cookies": "",
+  	"moment": "",
+  	"es5-shim": "",
+  	"es6-shim": ""
+  }
 }
 

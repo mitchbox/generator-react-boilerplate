@@ -18,14 +18,12 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
     ));
 
     var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
+      name: 'appName',
+      message: 'What is your app\' name ?'
     }];
 
     this.prompt(prompts, function (props) {
-      this.someOption = props.someOption;
+      this.appName = props.appName;
 
       done();
     }.bind(this));
@@ -34,10 +32,18 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
   writing: {
     app: function () {
       this.dest.mkdir('app');
-      this.dest.mkdir('app/templates');
+      this.dest.mkdir('app/assets');
+      this.dest.mkdir('app/static');
+      this.dest.mkdir('app/config');
+      this.dest.mkdir('app/scripts');
 
       this.src.copy('_package.json', 'package.json');
+      this.src.copy('_gulpfile.js', '_gulpfile.js');
       this.src.copy('_bower.json', 'bower.json');
+      this.src.copy('index.html', 'app/index.html');
+      this.src.copy('app.js', 'app/scripts/app.js');
+      this.src.copy('bowerrc', '.bowerrc');
+      this.src.copy('gitignore', '.gitignore');
     },
 
     projectfiles: function () {
