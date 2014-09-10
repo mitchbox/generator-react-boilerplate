@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(projectName) %>",
+  "name": "<%= _.slugify(appName) %>",
   "version": "0.0.1",
   "authors": [
   	"Mitch Chen <mitchblog@gmail.com>"

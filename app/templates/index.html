@@ -5,9 +5,15 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title><%= appname %></title>
+        <title><%= appName %></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
+        <!-- build:css assets/styles/bootstrap.min.css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        <!-- endbuild -->
+        <!-- build:css assets/styles/bootstrap-theme.min.css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+        <!-- endbuild -->
         <link rel="stylesheet" href="assets/styles/main.css">
     </head>
     <body>
@@ -17,15 +23,16 @@
 
         <div id="app"></div>
 
-        <!-- production:js scripts/vendor.js -->
-        <!-- development:js -->
+        <!-- build:js vendor/vendor.js -->
+        <!-- bower:js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="bower_components/Cookies/src/cookies.js"></script>
         <script src="bower_components/moment/moment.js"></script>
         <script src="bower_components/es5-shim/es5-shim.js"></script>
         <script src="bower_components/es6-shim/es6-shim.js"></script>
-        <!-- enddevelopment -->
-        <!-- endproduction -->
+        <!-- endbower -->
+        <!-- endbuild -->
         <script src="scripts/app.js"></script>
     </body>
 </html>

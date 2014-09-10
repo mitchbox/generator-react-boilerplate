@@ -24,7 +24,6 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (props) {
       this.appName = props.appName;
-
       done();
     }.bind(this));
   },
@@ -33,17 +32,29 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
     app: function () {
       this.dest.mkdir('app');
       this.dest.mkdir('app/assets');
+      this.dest.mkdir('app/assets/styles');
+      this.dest.mkdir('app/assets/images/');
+      this.dest.mkdir('app/assets/fonts');
       this.dest.mkdir('app/static');
       this.dest.mkdir('app/config');
       this.dest.mkdir('app/scripts');
+      this.dest.mkdir('app/scripts/components');
+      this.dest.mkdir('app/scripts/widgets');
+      this.dest.mkdir('app/scripts/views');
+      this.dest.mkdir('app/scripts/pages');
+      this.dest.mkdir('app/scripts/services');
+      this.dest.mkdir('app/scripts/utilities');
 
-      this.src.copy('_package.json', 'package.json');
-      this.src.copy('_gulpfile.js', '_gulpfile.js');
-      this.src.copy('_bower.json', 'bower.json');
+      this.template('_package.json', 'package.json');
+      this.template('_gulpfile.js', 'gulpfile.js');
+      this.template('_bower.json', 'bower.json');
+
       this.src.copy('index.html', 'app/index.html');
+      this.src.copy('main.css', 'app/assets/styles/main.css');
       this.src.copy('app.js', 'app/scripts/app.js');
       this.src.copy('bowerrc', '.bowerrc');
       this.src.copy('gitignore', '.gitignore');
+      this.src.copy('robots.txt', 'app/robots.txt');
     },
 
     projectfiles: function () {

@@ -1,11 +1,12 @@
 'use strict';
 
 var gulp = require('gulp'),
-    $ = require('gulp-load-plugins')();
+    $ = require('gulp-load-plugins')(),
+    connect = $.connectMulti();
 
-gulp.task('connect', $.connect.server({
+gulp.task('connect', connect.server({
     root: ['dist'],
-    port: 8888,
+    port: 8989,
     livereload: true,
     open: {
         browser: 'Google Chrome'
@@ -17,19 +18,29 @@ gulp.task('html', function() {
             .pipe($.useref())
             .pipe(gulp.dest('dist'))
             .pipe($.size())
-            .pipe($.connect.reload());
+            .pipe(connect.reload());
 });
 
 gulp.task('css', function() {
     return gulp.src('app/assets/styles/*.css')
             .pipe(gulp.dest('dist/assets/styles'))
-            .pipe($.connect.reload());
+            .pipe(connect.reload());
+});
+
+gulp.task('bootstrap', function() {
+    return gulp.src('app/bower_components/bootstrap/dist/css/*.css')
+            .pipe(gulp.dest('dist/assets/styles'));
+});
+
+gulp.task('fonts', function() {
+    return gulp.src('app/bower_components/bootstrap/dist/fonts/*')
+            .pipe(gulp.dest('dist/assets/fonts'));
 });
 
 gulp.task('images', function() {
     return gulp.src('app/assets/images/*')
             .pipe(gulp.dest('dist/assets/images'))
-            .pipe($.connect.reload());
+            .pipe(connect.reload());
 });
 
 gulp.task('scripts', function() {
@@ -40,19 +51,20 @@ gulp.task('scripts', function() {
             }))
             .pipe(gulp.dest('dist/scripts'))
             .pipe($.size())
-            .pipe($.connect.reload());
+            .pipe(connect.reload());
 });
 
-gulp.task('bundle', ['scripts'], function() {
+gulp.task('bundle', ['css', 'bootstrap', 'fonts', 'scripts'], function() {
+    var assets = $.useref.assets();
     return gulp.src('./app/*.html')
-            .pipe($.useref.assets())
-            .pipe($.useref.restore())
+            .pipe(assets)
+            .pipe(assets.restore())
             .pipe($.useref())
             .pipe(gulp.dest('dist'));
 });
 
 gulp.task('clean', function() {
-    return gulp.src(['dist/assets', 'dist/scripts', 'dist/static', 'dist/config'], {read: false})
+    return gulp.src(['dist'], {read: false})
             .pipe($.clean());
 });
 
@@ -68,4 +80,9 @@ gulp.task('development', ['html', 'bower', 'bundle', 'connect'], function() {
     gulp.watch('app/scripts/**/*.js', ['scripts']);
 });
 
-gulp.task('production', ['html', 'bundle', 'connect']);
+gulp.task('build', ['html', 'bundle', 'connect']);
+
+gulp.task('production', ['clean'], function() {
+    gulp.start('build');
+});
+

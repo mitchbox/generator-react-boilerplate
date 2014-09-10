@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(projectName) %>",
+  "name": "<%= _.slugify(appName) %>",
   "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
@@ -18,5 +18,8 @@
     "gulp-uglify": "1.0.1",
     "reactify": "~0.10.0",
     "react": "^0.10.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
   }
 }
