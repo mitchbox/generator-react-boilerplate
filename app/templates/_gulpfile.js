@@ -73,7 +73,8 @@ gulp.task('bower', function() {
         .pipe(gulp.dest('dist/bower_components/'));
 });
 
-gulp.task('development', ['html', 'bower', 'bundle', 'connect'], function() {
+gulp.task('development', ['html', 'bower', 'bundle'], function() {
+    gulp.start('connect');
     gulp.watch('app/*.html', ['html']);
     gulp.watch('app/assets/styles/*.css', ['css']);
     gulp.watch('app/assets/images/*', ['images']);
