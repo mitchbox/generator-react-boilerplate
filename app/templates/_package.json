@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
-  	"gulp": "~3.8.8",
+    "gulp": "~3.8.8",
     "gulp-load-plugins": "~0.6.0",
     "gulp-util": "~3.0.1",
     "gulp-autoprefixer": "~1.0.0",
