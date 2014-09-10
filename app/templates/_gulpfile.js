@@ -28,7 +28,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('bootstrap', function() {
-    return gulp.src('app/bower_components/bootstrap/dist/css/*.css')
+    return gulp.src('app/bower_components/bootstrap/dist/css/*')
             .pipe(gulp.dest('dist/assets/styles'));
 });
 
@@ -80,9 +80,10 @@ gulp.task('development', ['html', 'bower', 'bundle', 'connect'], function() {
     gulp.watch('app/scripts/**/*.js', ['scripts']);
 });
 
-gulp.task('build', ['html', 'bundle', 'connect']);
+gulp.task('build', ['html', 'bundle'], function() {
+    gulp.start('connect');
+});
 
 gulp.task('production', ['clean'], function() {
     gulp.start('build');
 });
-
