@@ -48,8 +48,8 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
       this.template('_package.json', 'package.json');
       this.template('_gulpfile.js', 'gulpfile.js');
       this.template('_bower.json', 'bower.json');
+      this.template('index.html', 'app/index.html');
 
-      this.src.copy('index.html', 'app/index.html');
       this.src.copy('main.css', 'app/assets/styles/main.css');
       this.src.copy('app.js', 'app/scripts/app.js');
       this.src.copy('bowerrc', '.bowerrc');

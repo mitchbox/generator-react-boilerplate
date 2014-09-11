@@ -2,7 +2,8 @@
 
 var gulp = require('gulp'),
     $ = require('gulp-load-plugins')(),
-    connect = $.connectMulti();
+    connect = $.connectMulti(),
+    wiredep = require('wiredep').stream;
 
 gulp.task('connect', connect.server({
     root: ['dist'],
@@ -16,6 +17,12 @@ gulp.task('connect', connect.server({
 gulp.task('html', function() {
     return gulp.src('app/*.html')
             .pipe($.useref())
+            .pipe(gulp.dest('dist'));
+});
+
+gulp.task('wiredep', function() {
+    return gulp.src('app/*.html')
+            .pipe(wiredep())
             .pipe(gulp.dest('dist'))
             .pipe($.size())
             .pipe(connect.reload());
@@ -25,16 +32,6 @@ gulp.task('css', function() {
     return gulp.src('app/assets/styles/*.css')
             .pipe(gulp.dest('dist/assets/styles'))
             .pipe(connect.reload());
-});
-
-gulp.task('bootstrap', function() {
-    return gulp.src('app/bower_components/bootstrap/dist/css/*')
-            .pipe(gulp.dest('dist/assets/styles'));
-});
-
-gulp.task('fonts', function() {
-    return gulp.src('app/bower_components/bootstrap/dist/fonts/*')
-            .pipe(gulp.dest('dist/assets/fonts'));
 });
 
 gulp.task('images', function() {
@@ -54,7 +51,29 @@ gulp.task('scripts', function() {
             .pipe(connect.reload());
 });
 
-gulp.task('bundle', ['css', 'bootstrap', 'fonts', 'scripts'], function() {
+gulp.task('bootstrap', function() {
+    return gulp.src('app/bower_components/bootstrap/dist/css/*')
+            .pipe(gulp.dest('dist/assets/styles'));
+});
+
+gulp.task('fonts', function() {
+    return gulp.src('app/bower_components/bootstrap/dist/fonts/*')
+            .pipe(gulp.dest('dist/assets/fonts'));
+});
+
+gulp.task('bower', function() {
+    gulp.src('app/bower_components/**/*', {base: 'app/bower_components'})
+        .pipe(gulp.dest('dist/bower_components/'));
+});
+
+gulp.task('clean', function() {
+    return gulp.src(['dist'], {read: false})
+            .pipe($.clean());
+});
+
+gulp.task('base', ['css', 'images', 'scripts']);
+
+gulp.task('bundle', ['html', 'bootstrap', 'fonts', 'base'], function() {
     var assets = $.useref.assets();
     return gulp.src('./app/*.html')
             .pipe(assets)
@@ -63,25 +82,19 @@ gulp.task('bundle', ['css', 'bootstrap', 'fonts', 'scripts'], function() {
             .pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', function() {
-    return gulp.src(['dist'], {read: false})
-            .pipe($.clean());
-});
-
-gulp.task('bower', function() {
-    gulp.src('app/bower_components/**/*.js', {base: 'app/bower_components'})
-        .pipe(gulp.dest('dist/bower_components/'));
-});
-
-gulp.task('development', ['html', 'bower', 'bundle'], function() {
+gulp.task('watch', ['wiredep', 'bower', 'base'], function() {
     gulp.start('connect');
-    gulp.watch('app/*.html', ['html']);
+    gulp.watch('app/*.html', ['wiredep']);
     gulp.watch('app/assets/styles/*.css', ['css']);
     gulp.watch('app/assets/images/*', ['images']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);
 });
 
-gulp.task('build', ['html', 'bundle'], function() {
+gulp.task('development', ['clean'], function() {
+    gulp.start('watch');
+});
+
+gulp.task('build', ['bundle'], function() {
     gulp.start('connect');
 });
 
