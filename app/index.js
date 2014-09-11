@@ -26,23 +26,23 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
       name: 'features',
       message: 'What more would you like?',
       choices: [{
-          name: 'Bootstrap',
+          name: 'Bootstrap: The most popular front-end framework for developing responsive, mobile first projects on the web',
           value: 'includeBootstrap',
           checked: true
       }, {
-          name: 'Cookies',
+          name: 'Cookies: Client-Side Cookie Manipulation API',
           value: 'includeCookies',
           checked: true
       }, {
-          name: 'Moment',
+          name: 'Moment: Parse, manipulate, and display dates',
           value: 'includeMoment',
           checked: true
       }, {
-          name: 'es5-shim',
+          name: 'ES5-shim: ECMAScript 5 compatibility shims for legacy JavaScript engines',
           value: 'includeES5',
           checked: true
       }, {
-          name: 'es6-shim',
+          name: 'ES6-shim: ECMAScript 6 compatibility shims for legacy JavaScript engines',
           value: 'includeES6',
           checked: true
       }]
