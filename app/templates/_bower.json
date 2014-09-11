@@ -5,12 +5,11 @@
   	"Mitch Chen <mitchblog@gmail.com>"
   ],
   "dependencies": {
-  	"jquery": "~2.1.0",
-  	"bootstrap": "~3.2.0",
-  	"Cookies": "",
-  	"moment": "",
-  	"es5-shim": "",
-  	"es6-shim": ""
+  	"jquery": "~2.1.0",<% if (includeBootstrap) { %>
+  	"bootstrap": "~3.2.0",<% } if (includeCookies) { %>
+  	"Cookies": "~0.4.0",<% } if (includeMoment) { %>
+  	"moment": "~2.8.3",<% } if (includeES5) { %>
+  	"es5-shim": "~4.0.3",<% } if (includeES6) { %>
+  	"es6-shim": "~0.18.0"<% } %>
   }
 }
-

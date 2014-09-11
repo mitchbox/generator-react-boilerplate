@@ -20,10 +20,43 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
     var prompts = [{
       name: 'appName',
       message: 'What is your app\' name ?'
+    },
+    {
+      type: 'checkbox',
+      name: 'features',
+      message: 'What more would you like?',
+      choices: [{
+          name: 'Bootstrap',
+          value: 'includeBootstrap',
+          checked: true
+      }, {
+          name: 'Cookies',
+          value: 'includeCookies',
+          checked: true
+      }, {
+          name: 'Moment',
+          value: 'includeMoment',
+          checked: true
+      }, {
+          name: 'es5-shim',
+          value: 'includeES5',
+          checked: true
+      }, {
+          name: 'es6-shim',
+          value: 'includeES6',
+          checked: true
+      }]
     }];
 
     this.prompt(prompts, function (props) {
+      var features = props.features;
+      function hasFeature(feat) { return features.indexOf(feat) !== -1; }
       this.appName = props.appName;
+      this.includeBootstrap = hasFeature('includeBootstrap');
+      this.includeCookies = hasFeature('includeCookies');
+      this.includeMoment = hasFeature('includeMoment');
+      this.includeES5 = hasFeature('includeES5');
+      this.includeES6 = hasFeature('includeES6');
       done();
     }.bind(this));
   },
