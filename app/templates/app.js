@@ -7,7 +7,7 @@ var React = require('react'),
 ExampleApp = React.createClass({
     render: function() {
         return (
-            <div>Example App</div>
+            <div>Hello, World</div>
         );
     }
 });

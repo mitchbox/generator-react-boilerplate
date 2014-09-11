@@ -68,7 +68,7 @@ gulp.task('bower', function() {
 
 gulp.task('clean', function() {
     return gulp.src(['dist'], {read: false})
-            .pipe($.clean());
+            .pipe($.rimraf());
 });
 
 gulp.task('base', ['css', 'images', 'scripts']);
