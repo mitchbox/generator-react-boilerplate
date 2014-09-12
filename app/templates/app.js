@@ -1,15 +1,22 @@
 /** @jsx React.DOM */
 
+'use strict';
+
 var React = require('react'),
-    ExampleApp,
-    appNode = document.getElementById('app');
+    ExampleApp;
 
 ExampleApp = React.createClass({
     render: function() {
         return (
-            <div>Hello, World</div>
+        	/*jshint ignore:start */
+            <div>
+            	<h2>Hello, World</h2>
+            </div>
+            /*jshint ignore:end */
         );
     }
 });
 
-React.renderComponent(<ExampleApp />, appNode);
+/*jshint ignore:start */
+React.renderComponent(<ExampleApp />, document.getElementById('app'));
+/*jshint ignore:end */

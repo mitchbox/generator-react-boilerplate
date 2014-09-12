@@ -66,6 +66,12 @@ gulp.task('bower', function() {
         .pipe(gulp.dest('dist/bower_components/'));
 });
 
+gulp.task('lint', function() {
+    return gulp.src(['app/scripts/*.js', 'app/scripts/**/*.js'])
+            .pipe($.jshint('.jshintrc'))
+            .pipe($.jshint.reporter('jshint-stylish'));
+});
+
 gulp.task('clean', function() {
     return gulp.src(['dist'], {read: false})
             .pipe($.rimraf());
@@ -87,10 +93,11 @@ gulp.task('watch', ['wiredep', 'bower', 'base'], function() {
     gulp.watch('app/*.html', ['wiredep']);
     gulp.watch('app/assets/styles/*.css', ['css']);
     gulp.watch('app/assets/images/*', ['images']);
-    gulp.watch('app/scripts/**/*.js', ['scripts']);
+    gulp.watch('app/scripts/*.js', ['lint', 'scripts']);
+    gulp.watch('app/scripts/**/*.js', ['lint', 'scripts']);
 });
 
-gulp.task('development', ['clean'], function() {
+gulp.task('development', ['clean', 'lint'], function() {
     gulp.start('watch');
 });
 
@@ -98,6 +105,6 @@ gulp.task('build', ['bundle'], function() {
     gulp.start('connect');
 });
 
-gulp.task('production', ['clean'], function() {
+gulp.task('production', ['clean', 'lint'], function() {
     gulp.start('build');
 });
