@@ -9,14 +9,10 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <% if (includeBootstrap) { %>
-        <!-- build:css assets/styles/bootstrap.min.css -->
+        <!-- build:css assets/styles/vendors.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-        <!-- endbower -->
-        <!-- endbuild -->
-        <!-- build:css assets/styles/bootstrap-theme.min.css -->
-        <!-- bower:css -->
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <% } %>
@@ -39,6 +35,6 @@
         <% if (includeES6) { %><script src="bower_components/es6-shim/es6-shim.js"></script><% } %>
         <!-- endbower -->
         <!-- endbuild -->
-        <script src="scripts/app.js"></script>
+        <script src="app.js"></script>
     </body>
 </html>

@@ -13,5 +13,9 @@
   "noarg": true,
   "quotmark": "single",
   "undef": true,
-  "strict": true
+  "strict": true,
+  "globals": {
+    "$": false,
+    "moment": false
+  }
 }
