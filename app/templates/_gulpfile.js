@@ -66,9 +66,12 @@ gulp.task('styles', function() {
 gulp.task('scripts', ['lint'], function() {
     return gulp.src(['app/scripts/app.js'])
             .pipe($.browserify({
-                insertGlobals: true,
-                transform: ['reactify']
+                transform: ['reactify'],
+                extensions: ['.jsx']
             }))
+            .on('prebundle', function(bundler) {
+                bundler.require('react');
+            })
             .pipe(gulp.dest('dist'))
             .pipe($.size());
 });
@@ -95,9 +98,12 @@ gulp.task('wiredep', function() {
 gulp.task('browserify', ['lint'], function() {
     return gulp.src(['app/scripts/app.js'])
             .pipe($.browserify({
-                insertGlobals: true,
-                transform: ['reactify']
+                transform: ['reactify'],
+                extensions: ['.jsx']
             }))
+            .on('prebundle', function(bundler) {
+                bundler.require('react');
+            })
             .pipe(gulp.dest('app'))
             .pipe($.size())
             .pipe(devServer.reload());
@@ -127,6 +133,6 @@ gulp.task('build', ['html'], function() {
     gulp.start('connect-pro');
 });
 
-gulp.task('production', function() {
+gulp.task('production', ['clean'], function() {
     gulp.start('build');
 });
