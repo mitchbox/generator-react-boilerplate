@@ -72,7 +72,7 @@ gulp.task('scripts', ['lint'], function() {
             .on('prebundle', function(bundler) {
                 bundler.require('react');
             })
-            .pipe(gulp.dest('dist'))
+            .pipe(gulp.dest('dist/scripts/'))
             .pipe($.size());
 });
 
@@ -84,6 +84,12 @@ gulp.task('html', ['base', 'images', 'styles', 'scripts'], function() {
             .pipe($.useref())
             .pipe(gulp.dest('dist'))
             .pipe($.size());
+});
+
+gulp.task('compress', ['html'], function() {
+    gulp.src(['dist/scripts/app.js', 'dist/scripts/vendor.js'])
+        .pipe($.uglify())
+        .pipe(gulp.dest('dist/scripts/'));
 });
 
 gulp.task('wiredep', function() {
@@ -129,7 +135,7 @@ gulp.task('development', ['connect-dev'], function() {
     gulp.start('watch');
 });
 
-gulp.task('build', ['html'], function() {
+gulp.task('build', ['compress'], function() {
     gulp.start('connect-pro');
 });
 
