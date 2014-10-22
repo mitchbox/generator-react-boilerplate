@@ -1,6 +1,6 @@
 {
   "name": "generator-react-boilerplate",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "React Boilerplate",
   "license": "MIT",
   "main": "app/index.js",
