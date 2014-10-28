@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     proServer = connect();
 
 gulp.task('connect-dev', devServer.server({
-    root: ['app'],
+    root: ['src'],
     port: 8989,
     livereload: true
 }));
@@ -105,8 +105,7 @@ gulp.task('browserify', ['lint'], function() {
                 bundler.require('react');
             })
             .pipe(gulp.dest('src/scripts/'))
-            .pipe($.size())
-            .pipe(devServer.reload());
+            .pipe($.size());
 });
 
 gulp.task('refresh', ['browserify'], function() {
