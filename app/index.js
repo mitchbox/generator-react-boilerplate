@@ -63,31 +63,31 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
-      this.dest.mkdir('app');
-      this.dest.mkdir('app/assets');
-      this.dest.mkdir('app/assets/styles');
-      this.dest.mkdir('app/assets/images/');
-      this.dest.mkdir('app/assets/fonts');
-      this.dest.mkdir('app/static');
-      this.dest.mkdir('app/config');
-      this.dest.mkdir('app/scripts');
-      this.dest.mkdir('app/scripts/components');
-      this.dest.mkdir('app/scripts/widgets');
-      this.dest.mkdir('app/scripts/views');
-      this.dest.mkdir('app/scripts/pages');
-      this.dest.mkdir('app/scripts/services');
-      this.dest.mkdir('app/scripts/utilities');
+      this.dest.mkdir('src');
+      this.dest.mkdir('src/assets');
+      this.dest.mkdir('src/assets/styles');
+      this.dest.mkdir('src/assets/images/');
+      this.dest.mkdir('src/assets/fonts');
+      this.dest.mkdir('src/static');
+      this.dest.mkdir('src/config');
+      this.dest.mkdir('src/app');
+      this.dest.mkdir('src/app/components');
+      this.dest.mkdir('src/app/widgets');
+      this.dest.mkdir('src/app/views');
+      this.dest.mkdir('src/app/pages');
+      this.dest.mkdir('src/app/services');
+      this.dest.mkdir('src/app/utilities');
 
       this.template('_package.json', 'package.json');
       this.template('_gulpfile.js', 'gulpfile.js');
       this.template('_bower.json', 'bower.json');
-      this.template('index.html', 'app/index.html');
+      this.template('index.html', 'src/index.html');
 
-      this.src.copy('main.css', 'app/assets/styles/main.css');
-      this.src.copy('app.js', 'app/scripts/app.js');
+      this.src.copy('main.css', 'src/assets/styles/main.css');
+      this.src.copy('app.js', 'src/app/app.js');
       this.src.copy('bowerrc', '.bowerrc');
       this.src.copy('gitignore', '.gitignore');
-      this.src.copy('robots.txt', 'app/robots.txt');
+      this.src.copy('robots.txt', 'src/robots.txt');
     },
 
     projectfiles: function () {

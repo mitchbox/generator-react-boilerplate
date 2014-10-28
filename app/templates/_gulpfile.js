@@ -10,19 +10,13 @@ var gulp = require('gulp'),
 gulp.task('connect-dev', devServer.server({
     root: ['app'],
     port: 8989,
-    livereload: true,
-    open: {
-        browser: 'Google Chrome'
-    }
+    livereload: true
 }));
 
 gulp.task('connect-pro', proServer.server({
     root: ['dist'],
     port: 9090,
-    livereload: true,
-    open: {
-        browser: 'Google Chrome'
-    }
+    livereload: true
 }));
 
 gulp.task('clean', function() {
@@ -31,40 +25,40 @@ gulp.task('clean', function() {
 });
 
 gulp.task('lint', function() {
-    return gulp.src(['app/scripts/*.js', 'app/scripts/**/*.js'])
+    return gulp.src(['src/app/*.js', 'src/app/**/*.js'])
             .pipe($.jshint('.jshintrc'))
             .pipe($.jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('robots', function() {
-    gulp.src('app/robots.txt')
+    gulp.src('src/robots.txt')
         .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('static', function() {
-    gulp.src('app/static/*')
+    gulp.src('src/static/*')
         .pipe(gulp.dest('dist/static/'));
 });
 
 gulp.task('fonts', function() {
-    return gulp.src('app/bower_components/bootstrap/dist/fonts/*')
-            .pipe(gulp.dest('dist/assets/fonts'));
+    gulp.src('src/bower_components/bootstrap/dist/fonts/*')
+        .pipe(gulp.dest('dist/assets/fonts'));
 });
 
-gulp.task('base', ['robots', 'static', 'fonts']);
-
 gulp.task('images', function() {
-    return gulp.src('app/assets/images/*')
-            .pipe(gulp.dest('dist/assets/images'));
+    gulp.src('src/assets/images/*')
+        .pipe(gulp.dest('dist/assets/images'));
 });
 
 gulp.task('styles', function() {
-    return gulp.src('app/assets/styles/*.css')
-            .pipe(gulp.dest('dist/assets/styles'));
+    gulp.src('src/assets/styles/*.css')
+        .pipe(gulp.dest('dist/assets/styles'));
 });
 
+gulp.task('base', ['robots', 'static', 'fonts', 'images', 'styles']);
+
 gulp.task('scripts', ['lint'], function() {
-    return gulp.src(['app/scripts/app.js'])
+    return gulp.src(['src/app/app.js'])
             .pipe($.browserify({
                 transform: ['reactify'],
                 extensions: ['.jsx']
@@ -76,9 +70,9 @@ gulp.task('scripts', ['lint'], function() {
             .pipe($.size());
 });
 
-gulp.task('html', ['base', 'images', 'styles', 'scripts'], function() {
+gulp.task('html', ['base', 'scripts'], function() {
     var assets = $.useref.assets();
-    return gulp.src('app/*.html')
+    return gulp.src('src/*.html')
             .pipe(assets)
             .pipe(assets.restore())
             .pipe($.useref())
@@ -93,16 +87,16 @@ gulp.task('compress', ['html'], function() {
 });
 
 gulp.task('wiredep', function() {
-    gulp.src('app/*.html')
+    gulp.src('src/*.html')
         .pipe(wiredep({
-            directory: 'app/bower_components',
-            ignorePath: 'app/'
+            directory: 'src/bower_components',
+            ignorePath: 'src/'
         }))
-        .pipe(gulp.dest('app'));
+        .pipe(gulp.dest('src'));
 });
 
 gulp.task('browserify', ['lint'], function() {
-    return gulp.src(['app/scripts/app.js'])
+    return gulp.src(['src/app/app.js'])
             .pipe($.browserify({
                 transform: ['reactify'],
                 extensions: ['.jsx']
@@ -110,28 +104,33 @@ gulp.task('browserify', ['lint'], function() {
             .on('prebundle', function(bundler) {
                 bundler.require('react');
             })
-            .pipe(gulp.dest('app'))
+            .pipe(gulp.dest('src/scripts/'))
             .pipe($.size())
             .pipe(devServer.reload());
 });
 
-gulp.task('watch', ['browserify'], function() {
+gulp.task('refresh', ['browserify'], function() {
+    gulp.src('src/scripts/app.js')
+        .pipe(devServer.reload());
+});
+
+gulp.task('watch', ['connect-dev'], function() {
     gulp.watch([
-        'app/*.html',
-        'app/assets/styles/*.css',
-        'app/assets/images/*',
-        'app/scripts/*.js',
-        'app/scripts/**/*.js'
+        'src/*.html',
+        'src/assets/styles/*.css',
+        'src/assets/images/*',
+        'src/app/*.js',
+        'src/app/**/*.js'
     ], function(event) {
         return gulp.src(event.path)
                 .pipe(devServer.reload());
     });
 
-    gulp.watch(['app/scripts/*.js', 'app/scripts/**/*.js'], ['browserify']);
+    gulp.watch(['src/app/*.js', 'src/app/**/*.js'], ['refresh']);
     gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('development', ['connect-dev'], function() {
+gulp.task('development', ['browserify'], function() {
     gulp.start('watch');
 });
 

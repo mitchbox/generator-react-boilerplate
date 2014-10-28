@@ -11,12 +11,12 @@
         <% if (includeBootstrap) { %>
         <!-- build:css assets/styles/vendors.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css" />
+        <link type="text/css" rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <% } %>
-        <link rel="stylesheet" href="assets/styles/main.css">
+        <link type="text/css" rel="stylesheet" href="assets/styles/main.css">
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -35,6 +35,6 @@
         <% if (includeES6) { %><script src="bower_components/es6-shim/es6-shim.js"></script><% } %>
         <!-- endbower -->
         <!-- endbuild -->
-        <script src="scripts/app.js"></script>
+        <script type="text/javascript" src="scripts/app.js"></script>
     </body>
 </html>
