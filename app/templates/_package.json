@@ -10,7 +10,6 @@
     "gulp-jshint": "~1.8.4",
     "gulp-rimraf": "~0.1.0",
     "gulp-bower": "0.0.6",
-    "gulp-react": "~1.0.0",
     "gulp-size": "~1.1.0",
     "gulp-connect-multi": "~1.0.8",
     "gulp-useref": "~1.0.1",
@@ -18,8 +17,8 @@
     "gulp-uglify": "1.0.1",
     "jshint-stylish": "0.4.0",
     "wiredep": "~1.8.5",
-    "reactify": "~0.10.0",
-    "react": "^0.10.0",
+    "reactify": "~0.15.2",
+    "react": "^0.12.0",
     "fluxxor": "~1.4.0"
   },
   "engines": {

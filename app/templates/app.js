@@ -17,6 +17,9 @@ ExampleApp = React.createClass({
     }
 });
 
-/*jshint ignore:start */
-React.renderComponent(<ExampleApp />, document.getElementById('app'));
-/*jshint ignore:end */
+React.render(
+    /*jshint ignore:start */
+    <ExampleApp />,
+    /*jshint ignore:end */
+    document.getElementById('app')
+);
