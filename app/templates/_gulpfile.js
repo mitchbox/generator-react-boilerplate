@@ -40,6 +40,11 @@ gulp.task('static', function() {
         .pipe(gulp.dest('dist/static/'));
 });
 
+gulp.task('config', function() {
+    gulp.src('src/config/*')
+        .pipe(gulp.dest('dist/config/'));
+});
+
 gulp.task('fonts', function() {
     gulp.src('src/bower_components/bootstrap/dist/fonts/*')
         .pipe(gulp.dest('dist/assets/fonts'));
@@ -55,7 +60,7 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('dist/assets/styles'));
 });
 
-gulp.task('base', ['robots', 'static', 'fonts', 'images', 'styles']);
+gulp.task('base', ['robots', 'static', 'config', 'fonts', 'images', 'styles']);
 
 gulp.task('scripts', ['lint'], function() {
     return gulp.src(['src/app/app.js'])
