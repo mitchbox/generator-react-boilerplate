@@ -46,6 +46,12 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
           value: 'includeES6',
           checked: true
       }]
+    },
+    {
+      type: 'confirm',
+      name: 'includeReactES6',
+      message: 'Using React 0.13.x ?',
+      default: true
     }];
 
     this.prompt(prompts, function (props) {
@@ -57,6 +63,7 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
       this.includeMoment = hasFeature('includeMoment');
       this.includeES5 = hasFeature('includeES5');
       this.includeES6 = hasFeature('includeES6');
+      this.includeReactES6 = hasFeature('includeReactES6');
       done();
     }.bind(this));
   },

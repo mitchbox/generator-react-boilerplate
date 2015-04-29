@@ -1,6 +1,8 @@
 'use strict';
 
 var gulp = require('gulp'),
+    stripDebug = require('gulp-strip-debug'),
+    gulpif = require('gulp-if'),
     $ = require('gulp-load-plugins')(),
     connect = $.connectMulti,
     wiredep = require('wiredep').stream,
@@ -65,7 +67,7 @@ gulp.task('base', ['robots', 'static', 'config', 'fonts', 'images', 'styles']);
 gulp.task('scripts', ['lint'], function() {
     return gulp.src(['src/app/app.js'])
             .pipe($.browserify({
-                transform: ['reactify'],
+                transform: ['babelify'],
                 extensions: ['.jsx']
             }))
             .on('prebundle', function(bundler) {
@@ -79,6 +81,7 @@ gulp.task('html', ['base', 'scripts'], function() {
     var assets = $.useref.assets();
     return gulp.src('src/*.html')
             .pipe(assets)
+            .pipe(gulpif('*.css', $.minifyCss()))
             .pipe(assets.restore())
             .pipe($.useref())
             .pipe(gulp.dest('dist'))
@@ -87,6 +90,7 @@ gulp.task('html', ['base', 'scripts'], function() {
 
 gulp.task('compress', ['html'], function() {
     gulp.src(['dist/scripts/app.js', 'dist/scripts/vendor.js'])
+        .pipe(stripDebug())
         .pipe($.uglify())
         .pipe(gulp.dest('dist/scripts/'));
 });
@@ -103,7 +107,7 @@ gulp.task('wiredep', function() {
 gulp.task('browserify', ['lint'], function() {
     return gulp.src(['src/app/app.js'])
             .pipe($.browserify({
-                transform: ['reactify'],
+                transform: ['babelify'],
                 extensions: ['.jsx']
             }))
             .on('prebundle', function(bundler) {
@@ -134,7 +138,7 @@ gulp.task('watch', ['connect-dev'], function() {
     gulp.watch('bower.json', ['wiredep']);
 });
 
-gulp.task('development', ['browserify'], function() {
+gulp.task('dev', ['browserify'], function() {
     gulp.start('watch');
 });
 
@@ -142,6 +146,16 @@ gulp.task('build', ['compress'], function() {
     gulp.start('connect-pro');
 });
 
-gulp.task('production', ['clean'], function() {
+gulp.task('pro', ['clean'], function() {
     gulp.start('build');
+});
+
+gulp.task('deploy', ['compress'], function() {
+    gulp.doneCallback = function(err) {
+        process.exit(err ? 1:0);
+    }
+});
+
+gulp.task('production', ['clean'], function() {
+    gulp.start('deploy');
 });
