@@ -50,7 +50,7 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
     {
       type: 'confirm',
       name: 'includeReactES6',
-      message: 'Using React 0.13.x ?',
+      message: 'Using React 0.13.x version?',
       default: true
     }];
 
@@ -73,6 +73,7 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
       this.dest.mkdir('src');
       this.dest.mkdir('src/assets');
       this.dest.mkdir('src/assets/styles');
+      this.dest.mkdir('src/assets/sass');
       this.dest.mkdir('src/assets/images/');
       this.dest.mkdir('src/assets/fonts');
       this.dest.mkdir('src/static');
