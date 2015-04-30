@@ -63,7 +63,7 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
       this.includeMoment = hasFeature('includeMoment');
       this.includeES5 = hasFeature('includeES5');
       this.includeES6 = hasFeature('includeES6');
-      this.includeReactES6 = hasFeature('includeReactES6');
+      this.includeReactES6 = props.includeReactES6;
       done();
     }.bind(this));
   },
