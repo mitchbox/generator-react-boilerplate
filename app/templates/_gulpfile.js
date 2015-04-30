@@ -57,9 +57,19 @@ gulp.task('images', function() {
         .pipe(gulp.dest('dist/assets/images'));
 });
 
-gulp.task('styles', function() {
+gulp.task('styles', ['compass'], function() {
     gulp.src('src/assets/styles/*.css')
         .pipe(gulp.dest('dist/assets/styles'));
+});
+
+gulp.task('compass', function() {
+    return gulp.src('src/assets/sass/*.scss')
+        .pipe($.compass({
+            sass: 'src/assets/sass',
+            css: 'src/assets/styles'
+        }))
+        .pipe($.minifyCss())
+        .pipe(gulp.dest('src/assets/styles'))
 });
 
 gulp.task('base', ['robots', 'static', 'config', 'fonts', 'images', 'styles']);
@@ -134,6 +144,7 @@ gulp.task('watch', ['connect-dev'], function() {
                 .pipe(devServer.reload());
     });
 
+    gulp.watch(['src/assets/sass/*.scss'], ['compass']);
     gulp.watch(['src/app/*.js', 'src/app/**/*.js'], ['refresh']);
     gulp.watch('bower.json', ['wiredep']);
 });
