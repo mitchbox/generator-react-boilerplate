@@ -5,9 +5,13 @@
 
 ## What's inside?
 
+* react (Support for React v0.12.x and React v0.13.x)
+* reflux
+* react-router
 * gulp
 * browserify
-* reactify
+* watchify
+* babelify
 * livereload
 
 ## Getting Started

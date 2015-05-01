@@ -1,6 +1,6 @@
 {
   "name": "generator-react-boilerplate",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "React Boilerplate",
   "license": "MIT",
   "main": "app/index.js",
@@ -23,7 +23,10 @@
   "keywords": [
     "yeoman-generator",
     "react",
+    "es6",
     "browserify",
+    "watchify",
+    "babelify",
     "gulp"
   ],
   "dependencies": {
