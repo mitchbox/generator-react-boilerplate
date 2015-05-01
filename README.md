@@ -39,11 +39,11 @@ $ yo react-boilerplate
 Run watch task and begin to develop your React components.
 
 ```
-$ gulp development
+$ gulp dev
 ```
 
 ```
-$ gulp production
+$ gulp pro
 ```
 
 ## License
