@@ -4,6 +4,8 @@ var gulp = require('gulp'),
     stripDebug = require('gulp-strip-debug'),
     gulpif = require('gulp-if'),
     $ = require('gulp-load-plugins')(),
+    watchify = require('watchify'),
+    source = require('vinyl-source-stream'),
     connect = $.connectMulti,
     wiredep = require('wiredep').stream,
     devServer = connect(),
@@ -114,17 +116,45 @@ gulp.task('wiredep', function() {
         .pipe(gulp.dest('src'));
 });
 
-gulp.task('browserify', ['lint'], function() {
-    return gulp.src(['src/app/app.js'])
-            .pipe($.browserify({
-                transform: ['babelify'],
-                extensions: ['.jsx']
-            }))
-            .on('prebundle', function(bundler) {
-                bundler.require('react');
-            })
-            .pipe(gulp.dest('src/scripts/'))
-            .pipe($.size());
+// gulp.task('browserify', ['lint'], function() {
+//     return gulp.src(['src/app/app.js'])
+//             .pipe($.browserify({
+//                 transform: ['babelify'],
+//                 extensions: ['.jsx']
+//             }))
+//             .on('prebundle', function(bundler) {
+//                 bundler.require('react');
+//             })
+//             .pipe(gulp.dest('src/scripts/'))
+//             .pipe($.size());
+// });
+
+gulp.task('browserify', function() {
+    var bundler = $.browserify({
+        entries: ['src/app/app.js'],
+        transform: ['babelify'],
+        extensions: ['.jsx'],
+        debug: true,
+        cache: {},
+        packageCache: {},
+        fullPaths: true
+    });
+    var watcher = watchify(bundler);
+    return watcher
+        .on('prebundle', function(bundler) {
+            bundler.require('react');
+        })
+        .on('update', function() {
+            var updateStart = Date.now();
+            console.log('Updating!');
+            watcher.bundle()
+                .pipe(source('app.js'))
+                .pipe(gulp.dest('src/scripts/'));
+            console.log('Updated!', (Date.now()-updateStart)+'ms');
+        })
+        .bundle()
+        .pipe(source('app.js'))
+        .pipe(gulp.dest('src/scripts/'));
 });
 
 gulp.task('refresh', ['browserify'], function() {
