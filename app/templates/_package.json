@@ -25,11 +25,11 @@
     "watchify": "~3.2.1",<% if (includeReactES6) { %>
     "babelify": "~6.0.2",
     "react": "^0.13.0",
-    "reflux": "~0.1.13",
+    "reflux": "~0.2.7",
     "react-router": "~0.13.3"<% } else { %>
     "reactify": "~0.15.2",
     "react": "^0.12.0",
-    "reflux": "~0.1.13",
+    "reflux": "~0.2.7",
     "react-router": "~0.11.6"<% } %>
   },
   "engines": {
