@@ -1,18 +1,19 @@
 'use strict';
 
-var React = require('react');
+var React = require('react'),
+    ExampleApp;
 
-class ExampleApp extends React.Component {
-    render() {
+ExampleApp = React.createClass({
+    render: function() {
         return (
             /*jshint ignore:start */
             <div>
-                <h2>Hello, React ES6</h2>
+                <h2>Hello, React</h2>
             </div>
             /*jshint ignore:end */
         );
     }
-}
+});
 
 React.render(
     /*jshint ignore:start */
