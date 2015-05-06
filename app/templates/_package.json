@@ -22,14 +22,12 @@
     "wiredep": "~1.8.5",
     "vinyl-source-stream": "1.1.0",
     "browserify": "10.0.0",
-    "watchify": "~3.2.1",<% if (includeReactES6) { %>
+    "watchify": "~3.2.1",
     "babelify": "~6.0.2",
+    "reflux": "~0.2.7",<% if (includeReactES6) { %>
     "react": "^0.13.0",
-    "reflux": "~0.2.7",
     "react-router": "~0.13.3"<% } else { %>
-    "reactify": "~0.15.2",
     "react": "^0.12.0",
-    "reflux": "~0.2.7",
     "react-router": "~0.11.6"<% } %>
   },
   "engines": {
