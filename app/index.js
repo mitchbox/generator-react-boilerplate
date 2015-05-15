@@ -19,7 +19,7 @@ var ReactBoilerplateGenerator = yeoman.generators.Base.extend({
 
     var prompts = [{
       name: 'appName',
-      message: 'What is your app\' name ?'
+      message: 'What is your app\'s name ?'
     },
     {
       type: 'checkbox',
